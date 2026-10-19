@@ -1,26 +1,165 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #000000;
+  --bg-panel: #0a0a0a;
+  --bg-elevated: #121212;
+  --border: #1c1c1c;
+  --text: #e8e8e8;
+  --muted: #7a7a7a;
+  --green: #0ecb81;
+  --green-dim: #0a3322;
+  --red: #f6465d;
+  --red-dim: #3a1016;
+  --accent: #f0b90b;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --font-sans: var(--font-ibm);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: #000;
+  color: var(--text);
+  font-family: var(--font-ibm), ui-sans-serif, system-ui, sans-serif;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.mono {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.up {
+  color: var(--green);
+}
+
+.down {
+  color: var(--red);
+}
+
+.chip {
+  border: 1px solid var(--border);
+  background: #111;
+  color: var(--muted);
+}
+
+.chip:hover {
+  border-color: #2a2a2a;
+  color: #c8c8c8;
+}
+
+.chip-on {
+  border-color: #2f2f2f;
+  background: #1c1c1c;
+  color: #fff;
+}
+
+.news-banner {
+  background: #16120a;
+  border-bottom: 1px solid #3d3110;
+  color: #e6c07b;
+}
+
+.toast-in {
+  animation: toastIn 0.2s ease-out;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.flash-up {
+  animation: flashUp 0.35s ease;
+}
+
+.flash-down {
+  animation: flashDown 0.35s ease;
+}
+
+@keyframes flashUp {
+  from {
+    background: rgba(14, 203, 129, 0.18);
+  }
+  to {
+    background: transparent;
+  }
+}
+
+@keyframes flashDown {
+  from {
+    background: rgba(246, 70, 93, 0.18);
+  }
+  to {
+    background: transparent;
+  }
+}
+
+input[type="range"] {
+  accent-color: var(--accent);
+  height: 4px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  font-weight: 500;
+}
+
+.book-bar-ask {
+  background: rgba(246, 70, 93, 0.4);
+}
+
+.book-bar-bid {
+  background: rgba(14, 203, 129, 0.4);
 }

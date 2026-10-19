@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "smoke": "node scripts/smoke.mjs",
+    "smoke:wave2": "node scripts/smoke-wave2.mjs"
   },
   "dependencies": {
+    "lightweight-charts": "^5.2.1",
     "next": "16.4.2",
     "react": "19.3.0",
     "react-dom": "19.3.0"

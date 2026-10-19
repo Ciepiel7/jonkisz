@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Jonkisz — giełda offline
 
-## Getting Started
+Lokalna symulacja giełdy perpetual: instrumenty (krypto + akcje), konta, long/short z dźwignią, order book, boty i programowane scenariusze rynku.
 
-First, run the development server:
+## Start
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Otwórz [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Co jest w środku
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Silnik w `src/engine/` — matching, margin, PnL, likwidacja, tick zegara
+- TP/SL, trailing stop, alerty cenowe, funding, news flash, boty MM/noise
+- Stan w `data/state.json` (bez zewnętrznej bazy)
+- Scenariusze: `randomWalk`, `trend`, `crash`, `meanRevert`
+- Dashboard: wykres 1m/5m/15m, depth chart, książka, ticket, zlecenia, ranking, equity, feed
 
-## Learn More
+### Hotkeys
 
-To learn more about Next.js, take a look at the following resources:
+| Klawisz | Akcja |
+|---------|--------|
+| `B` | Market long |
+| `S` | Market short |
+| `Space` | Pauza / start |
+| `N` | Losowy news |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## API
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Endpoint | Opis |
+|----------|------|
+| `GET /api/state` | Snapshot |
+| `GET /api/stream` | SSE ticków |
+| `POST /api/orders` | Zlecenie market/limit (+ opcjonalne TP/SL) |
+| `DELETE /api/orders` | Anulowanie (`{ orderId }`) |
+| `POST /api/positions/close` | Zamknięcie pozycji (pełne lub `size`) |
+| `POST /api/positions/tpsl` | Ustaw TP/SL/trailing na pozycji |
+| `POST /api/alerts` | Twórz / usuń alert cenowy |
+| `POST /api/news` | Wymuś news flash |
+| `POST /api/clock` | `running`, `speed`, `botsEnabled` |
+| `POST /api/market/scenario` | Scenariusz + parametry |
+| `POST /api/accounts` | Nowe konto / depozyt |
+| `POST /api/reset` | Seed od zera |
